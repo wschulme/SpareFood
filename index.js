@@ -278,6 +278,6 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(PORT, function() {
+http.listen(process.env.PORT || PORT, function() {
     console.log('Example app listening on port ' + PORT);
 });
