@@ -90,6 +90,10 @@ app.get('/createMarket/', function(req, res) {
 app.post('/createMarket/', function(req, res){
     var name = req.body.name;
     var address = req.body.address;
+    if(!name || !address){
+        console.log('Invalid Form');
+        return res.redirect('/createMarket')
+    }
     var market = new Market({
         name: name,
         address: address,
@@ -132,6 +136,12 @@ app.post('/markets/:id/addFood/', function(req, res){
     var organic = (body.organic ? true : false);
     var price = parseFloat(body.price);
     var weight = parseFloat(body.weight);
+
+    if(!body.name || !price || !weight){
+        console.log('Invalid Form');
+        var redirect = '/markets/' + req.params.id + '/addFood/';
+        return res.redirect(redirect);
+    }
     
     Market.findOne({_id: req.params.id}, function(err, market) {
         if(err) throw err;
@@ -189,6 +199,11 @@ app.get('/api/markets/:id/food', function(req, res) {
 app.post('/api/markets', function(req, res) {
     var name = req.query.name;
     var address = req.query.address;
+    
+    if(!name || !address){
+        return res.send('Invalid Form');
+    }
+
     var market = new Market({
         name: name,
         address: address,
@@ -212,6 +227,10 @@ app.post('/api/markets/:id/food', function(req, res) {
             var organic = (req.query.organic == 'true' || req.query.organic == 'True');
             var weight = parseFloat(req.query.weight);
             
+            if(!body.name || !price || !weight){
+                return res.send('Invalid Form');
+            }
+
             var now = new Date();
             var date = dateFormat(now, "dddd, mmmm dS, yyyy, h:MM TT");
             
