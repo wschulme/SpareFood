@@ -16,7 +16,7 @@ Project Topic: An expansion on my midterm project. This website stores different
 
   
 
-URL: [sparefood.herokuapp.com](sparefood.herokuapp.com)
+URL: sparefood.herokuapp.com
 
   
 
