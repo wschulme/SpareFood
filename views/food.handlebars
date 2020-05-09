@@ -3,7 +3,7 @@
             {{#each food}}
                 <li class = 'food-list-item'>
                     <h3 class = 'food-list-name'>{{this.name}}</h3>
-                    <a class = 'food-list-button' href = '/markets/{{this.market._id}}/' id = {{this.market._id}}>{{this.market.name}}</a>
+                    <a class = 'food-list-button' href = '/markets/{{this.market._id}}/' id = '{{this.market._id}}'>{{this.market.name}}</a>
                 </li>
             {{/each}}
         </ul>

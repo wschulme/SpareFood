@@ -8,15 +8,14 @@
         <div class = "market-info">
             <h2 class="market-name">{{this.name}}</h2>
             <h3 class ="market-address">{{this.address}}</h3>
-            {{#if this.food}}
             <ul class = "market-food" id={{this._id}}>
                 {{#each this.food}}
                     <li class = "food-item">{{this.name}}</li>
                 {{/each}}
             </ul>
-            {{else}}
-                <p class = 'market-no-food {{this._id}}'>No food to display.</p>
-            {{/if}}
+            {{#unless this.food}}
+                <p class = 'market-no-food' id ={{this._id}}>No food to display.</p>
+            {{/unless}}
         </div>
         <div class = "options">
             <a class ="button" href='/markets/{{this._id}}'>Details and Options</a>

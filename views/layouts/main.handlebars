@@ -71,7 +71,7 @@
       var $item = $('<li>',{class: 'food-list-item'});
         $item.append($('<h3>', {class:'food-list-name', text: food.name}));
         var reference= '/markets/' + market._id
-        $item.append($('<a>', {class:'food-list-a', href:reference, text:market.name}))
+        $item.append($('<a>', {class:'food-list-button', href:reference, text:market.name}))
       var a = food.name.toLowerCase();
       $.each($('#food-list > li'),function() {
         var b = $(this).find('.food-list-name').text().toLowerCase();
@@ -84,7 +84,7 @@
         $('#food-list').append($item);
       }
     $('#no-food').hide();
-    var q = '.market-no-food ' + market._id;
+    var q = '#'+market._id+'.market-no-food';
     $(q).hide();
     });
 </script>
