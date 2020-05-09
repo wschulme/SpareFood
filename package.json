@@ -1,0 +1,30 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "In this project, you will work on a project to tie together everything you have learned up to now in the semester.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "William Schulmeister",
+  "license": "ISC",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "body-parser": "^1.19.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "fs": "0.0.1-security",
+    "handlebars": "4.5.3",
+    "http": "0.0.1-security",
+    "less-middleware": "^3.1.0",
+    "marked": "^1.0.0",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.12",
+    "path": "^0.12.7",
+    "showdown": "^1.9.1",
+    "socket.io": "^2.3.0"
+  }
+}

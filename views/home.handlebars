@@ -1,0 +1,28 @@
+<div class = "content" id ='content'>
+    <div id = 'top'>
+      <h1 id ='title'>SpareFood</h1>
+      <a class = 'button' id ="createMarket" href="/createMarket/">New Market</a>
+    </div>
+    {{#each data}}
+    <div class="market">
+        <div class = "market-info">
+            <h2 class="market-name">{{this.name}}</h2>
+            <h3 class ="market-address">{{this.address}}</h3>
+            {{#if this.food}}
+            <ul class = "market-food" id={{this._id}}>
+                {{#each this.food}}
+                    <li class = "food-item">{{this.name}}</li>
+                {{/each}}
+            </ul>
+            {{else}}
+                <p class = 'market-no-food {{this._id}}'>No food to display.</p>
+            {{/if}}
+        </div>
+        <div class = "options">
+            <a class ="button" href='/markets/{{this._id}}'>Details and Options</a>
+        </div>
+    </div>
+    {{else}}
+    <h1 id = 'no-markets'>There are no markets!</h1>
+    {{/each}}
+</div>

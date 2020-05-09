@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SpareFood</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  <link rel="stylesheet" href="/assets/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src = 'http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js' type = 'text/javascript'></script>
+</head>
+
+<body>
+    <ul id = 'header'>
+            <li><a class = 'nav' id ="about" href="/">Markets</a></li>
+            <li><a class = 'nav' id ='food' href="/food/">Food</a></li>
+            <li><a class = 'nav' id ="about" href="/about/">About</a></li>
+    </ul>
+  {{{body}}}
+</body>
+
+</html>
+
+<script>
+    var socket = io()
+
+    //New Market
+    socket.on('new market', function(market){
+        var reference = '/markets/' + market._id;
+        var $market = $('<div>', {class: 'market'}).appendTo($('#content'));
+            var $marketinfo = $('<div>', {class: 'market-info'}).appendTo($market)
+                $marketinfo.append($('<h2>', {class: 'market-name',text: market.name}));
+                $marketinfo.append($('<h3>', {class: 'market-address', text: market.address}));
+                if (market.food.length > 0) {
+                    var $food = $('<ul>', {class: 'market-food'}).appendTo($marketinfo);
+                        $.each(market.food, function(idx, elem){
+                            $food.append($('<li>',{class: 'food-item', text: elem.name}))
+                        });
+                }
+                else {
+                    $marketinfo.append($('<p>', {text: 'No food to display.', class:'market-no-food '+ market._id}));
+                }
+            var $options = $('<div>', {class: 'options'}).appendTo($market);
+                $options.append($('<a>', {class: 'food-button', href: reference, text:'Details and Options'}));
+        $('#no-markets').hide();
+    });   
+    //New Food 
+    socket.on('new food', function(market, food){
+      //Add to home page
+      var q = '#'+market._id+'.market-food';
+      $(q).append($('<li>',{class: 'food-item', text:food.name}));
+      
+      //Add to market view
+      var money = '$' + food.price.toFixed(2);
+      var org = (food.organic? 'Yes': 'No');
+
+      var $table = $('#food-table');
+      var $row = $('<tr>', {class : 'food-table-row'}).appendTo($table);
+        $($row).append($('<th>', {class: 'food-table-name', text: food.name}));
+        $($row).append($('<th>', {class: 'food-table-date', text: food.date}));
+        $($row).append($('<th>', {class: 'food-table-price', text: money}));
+        $($row).append($('<th>', {class: 'food-table-weight', text: food.weight}));
+        $($row).append($('<th>', {class: 'food-table-organic', text: org}));
+      
+      //Add to food list in order
+      var placed = false;
+      var $item = $('<li>',{class: 'food-list-item'});
+        $item.append($('<h3>', {class:'food-list-name', text: food.name}));
+        var reference= '/markets/' + market._id
+        $item.append($('<a>', {class:'food-list-a', href:reference, text:market.name}))
+      var a = food.name.toLowerCase();
+      $.each($('#food-list > li'),function() {
+        var b = $(this).find('.food-list-name').text().toLowerCase();
+        if(b>a && placed == false){
+          $(this).before($item);
+          placed = true;
+        }
+      });
+      if(placed == false){
+        $('#food-list').append($item);
+      }
+    $('#no-food').hide();
+    var q = '.market-no-food ' + market._id;
+    $(q).hide();
+    });
+</script>

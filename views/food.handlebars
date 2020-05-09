@@ -1,0 +1,13 @@
+<div class = 'content' id = 'food-content'>
+        <ul id = "food-list">
+            {{#each food}}
+                <li class = 'food-list-item'>
+                    <h3 class = 'food-list-name'>{{this.name}}</h3>
+                    <a class = 'food-list-button' href = '/markets/{{this.market._id}}/' id = {{this.market._id}}>{{this.market.name}}</a>
+                </li>
+            {{/each}}
+        </ul>
+    {{#unless food}}
+        <h3 id = 'no-food'>No Food to Display.</h3>
+    {{/unless}}
+</div>

@@ -1,0 +1,34 @@
+<div class = 'content' id = 'market-content'>
+    <h2 class="market-page-name">{{data.name}}</h2>
+    <h3 class ="market-page-address">{{data.address}}</h3>
+    <table id = "food-table">
+            <tr id ='food-table-toprow'>
+                <th class = 'food-table-label'>Food</th>
+                <th class = 'food-table-label'>Date Marked as Spare</th>
+                <th class = 'food-table-label'>Price</th>
+                <th class = 'food-table-label'>Weight (LBs)</th>
+                <th class = 'food-table-label'>Organic</th>
+            </tr>
+        {{#each data.food}}
+            <tr class = 'food-table-row'>
+                <th class = 'food-table-name'>{{this.name}}</th>
+                <th class = 'food-table-date'>{{this.date}}</th>
+                <th class = 'food-table-price'>{{this.price}}</th>
+                <th class = 'food-table-weight'>{{this.weight}}</th>
+                <th class = 'food-table-organic'>{{this.organic}}</th>
+            </tr>
+        {{/each}}
+    </table>
+    <a class = 'market-button' href = '/markets/{{data._id}}/addFood/'>Add Food</a>
+</div>
+
+<script>
+    $(".food-table-price").each(function(){
+        money = parseFloat($(this).text()).toFixed(2);
+        $(this).text('$'+money);
+    });
+    $(".food-table-organic").each(function(){
+        organic = $(this).text()=='true' ? 'Yes':'No';
+        $(this).text(organic);
+    });
+</script>
